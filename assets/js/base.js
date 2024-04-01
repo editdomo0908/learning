@@ -1,53 +1,63 @@
 
 
-//CIRCLE Effect 
+///CIRCLE ANIMATION
 
 document.addEventListener('DOMContentLoaded', function () {
-    const circle = document.querySelector('.gradient-circle');
-    const colors = ['#7089bc', '#c67c78', '#ad689b', '#9d5cb1', '#4e6674', '#364750', '#e67e22', '#95a5a6', '##9484e4', '#34495e', '#6f89bb', '##adcdcd'];
-    const colorCount = colors.length;
+  const circle = document.querySelector('.gradient-circle');
+  const colors = ['#7089bc', '#c67c78', '#ad689b', '#9d5cb1', '#4e6674', '#364750', '#e67e22', '#95a5a6', '##9484e4', '#34495e', '#6f89bb', '##adcdcd'];
+  const colorCount = colors.length;
 
-    let animationStarted = false;
-    let scrollTimeout;
+  let animationStarted = false;
+  let scrollTimeout;
 
+  window.addEventListener('scroll', function () {
+    const windowHeight = window.innerHeight;
+    const circleTop = circle.getBoundingClientRect().top;
+    const circleBottom = circleTop + circle.offsetHeight;
+    const maxScrollPosition = document.documentElement.scrollHeight - windowHeight;
+    let scrollPosition = window.scrollY;
 
-    window.addEventListener('scroll', function () {
-      const scrollPosition = window.scrollY;
+    // Limit scrollPosition to maximum value
+    scrollPosition = Math.min(scrollPosition, maxScrollPosition);
 
- // Start the floating animation when the circle comes into view
-
- if (!animationStarted) {
     // Start the floating animation when the circle comes into view
-    if (scrollPosition > circle.offsetTop - window.innerHeight && scrollPosition < circle.offsetTop + circle.offsetHeight) {
+    if (!animationStarted && circleTop < windowHeight && circleBottom > 0) {
       circle.style.animationPlayState = 'running';
       animationStarted = true;
     }
-  }
 
-      // Change colors based on scroll position
-      const index = Math.floor(scrollPosition / (window.innerHeight / colorCount)) % colorCount;
-      const color1 = colors[index];
-      const color2 = colors[(index + 1) % colorCount];
-      const color3 = colors[(index + 2) % colorCount];
+    // Change colors based on scroll position
+    const index = Math.floor(scrollPosition / (windowHeight / colorCount)) % colorCount;
+    const color1 = colors[index];
+    const color2 = colors[(index + 1) % colorCount];
+    const color3 = colors[(index + 2) % colorCount];
 
-      // Apply the new colors
-      circle.style.background = `linear-gradient(45deg, ${color1}, ${color2}, ${color3})`;
-      // Apply the floating animation
-      circle.style.transform = `translateY(${scrollPosition / 3}px)`; // Adjust the division factor for the desired float speed
+    // Apply the new colors
+    circle.style.background = `linear-gradient(45deg, ${color1}, ${color2}, ${color3})`;
 
-// Clear any previous timeout
-clearTimeout(scrollTimeout);
+    // Adjust floating animation based on screen size
+    let translateYFactor;
+    if (window.innerWidth <= 480) {
+      translateYFactor = 5; // For screens with width less than or equal to 480px
+    } else if (window.innerWidth <= 768) {
+      translateYFactor = 5; // For screens with width less than or equal to 768px
+    } else {
+      translateYFactor = 2; // Default for larger screens
+    }
 
-// Set a timeout to check if scrolling has stopped after 100 milliseconds
-scrollTimeout = setTimeout(() => {
-  // If no scroll events occur within 200 milliseconds, pause the animation
-  circle.style.animationPlayState = 'paused';
-  animationStarted = false;
-}, 100);
+    circle.style.transform = `translateY(${Math.min(scrollPosition, windowHeight) / translateYFactor}px)`;
 
+    // Clear any previous timeout
+    clearTimeout(scrollTimeout);
 
-    });
+    // Set a timeout to check if scrolling has stopped after 100 milliseconds
+    scrollTimeout = setTimeout(() => {
+      // If no scroll events occur within 200 milliseconds, pause the animation
+      circle.style.animationPlayState = 'paused';
+      animationStarted = false;
+    }, 100);
   });
+});
 
 
 
