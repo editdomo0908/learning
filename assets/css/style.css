@@ -12086,5 +12086,14 @@ option+4 dollar*/
 option+shift+A to change for comment, 
 option+7 for brackets,
 option+4 dollar*/
+/* https://www.youtube.com/watch?v=iJKCj8uAHz8
+option+shift+A to change for comment, 
+option+7 for brackets,
+option+4 dollar*/
+.feedback {
+  position: relative;
+  padding: 0;
+  background: linear-gradient(to right, rgba(26, 30, 30, 0.85), rgba(110, 218, 245, 0.95));
+}
 
 /*# sourceMappingURL=style.css.map */
