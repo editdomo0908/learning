@@ -11911,6 +11911,20 @@ option+4 dollar*/
   color: #6edaf5;
 }
 
+.btn-portfolio {
+  font-family: "Jost", sans-serif;
+  text-transform: uppercase;
+  background-color: #6edaf5;
+  font-weight: 500;
+  padding: 0.5rem;
+  margin: 0;
+  border: 0.1rem solid rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+.btn-portfolio:hover {
+  background-color: rgba(110, 218, 245, 0.5);
+}
+
 /* https://www.youtube.com/watch?v=iJKCj8uAHz8
 option+shift+A to change for comment, 
 option+7 for brackets,
@@ -12129,6 +12143,10 @@ option+4 dollar*/
 }
 .feedback__right {
   color: #6edaf5;
+}
+
+.portfolio {
+  background-color: white;
 }
 
 /*# sourceMappingURL=style.css.map */
